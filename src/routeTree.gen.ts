@@ -14,7 +14,10 @@ import { Route as IndexRouteImport } from './pages/index'
 import { Route as TestjsonIndexRouteImport } from './pages/testjson/index'
 import { Route as SearchIndexRouteImport } from './pages/search/index'
 import { Route as PostsIndexRouteImport } from './pages/posts/index'
+import { Route as PlaylistIndexRouteImport } from './pages/playlist/index'
+import { Route as SearchKeywordIndexRouteImport } from './pages/search/$keyword/index'
 import { Route as PostsPostIdIndexRouteImport } from './pages/posts/$postId/index'
+import { Route as PlaylistIdIndexRouteImport } from './pages/playlist/$id/index'
 import { Route as TestLayoutTestIndexRouteImport } from './pages/_testLayout/test/index'
 import { Route as TestLayoutTestNewsIndexRouteImport } from './pages/_testLayout/test/news/index'
 
@@ -42,9 +45,24 @@ const PostsIndexRoute = PostsIndexRouteImport.update({
   path: '/posts/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlaylistIndexRoute = PlaylistIndexRouteImport.update({
+  id: '/playlist/',
+  path: '/playlist/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchKeywordIndexRoute = SearchKeywordIndexRouteImport.update({
+  id: '/search/$keyword/',
+  path: '/search/$keyword/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PostsPostIdIndexRoute = PostsPostIdIndexRouteImport.update({
   id: '/posts/$postId/',
   path: '/posts/$postId/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlaylistIdIndexRoute = PlaylistIdIndexRouteImport.update({
+  id: '/playlist/$id/',
+  path: '/playlist/$id/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TestLayoutTestIndexRoute = TestLayoutTestIndexRouteImport.update({
@@ -60,71 +78,92 @@ const TestLayoutTestNewsIndexRoute = TestLayoutTestNewsIndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/playlist': typeof PlaylistIndexRoute
   '/posts': typeof PostsIndexRoute
   '/search': typeof SearchIndexRoute
   '/testjson': typeof TestjsonIndexRoute
   '/test': typeof TestLayoutTestIndexRoute
+  '/playlist/$id': typeof PlaylistIdIndexRoute
   '/posts/$postId': typeof PostsPostIdIndexRoute
+  '/search/$keyword': typeof SearchKeywordIndexRoute
   '/test/news': typeof TestLayoutTestNewsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/playlist': typeof PlaylistIndexRoute
   '/posts': typeof PostsIndexRoute
   '/search': typeof SearchIndexRoute
   '/testjson': typeof TestjsonIndexRoute
   '/test': typeof TestLayoutTestIndexRoute
+  '/playlist/$id': typeof PlaylistIdIndexRoute
   '/posts/$postId': typeof PostsPostIdIndexRoute
+  '/search/$keyword': typeof SearchKeywordIndexRoute
   '/test/news': typeof TestLayoutTestNewsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_testLayout': typeof TestLayoutRouteWithChildren
+  '/playlist/': typeof PlaylistIndexRoute
   '/posts/': typeof PostsIndexRoute
   '/search/': typeof SearchIndexRoute
   '/testjson/': typeof TestjsonIndexRoute
   '/_testLayout/test/': typeof TestLayoutTestIndexRoute
+  '/playlist/$id/': typeof PlaylistIdIndexRoute
   '/posts/$postId/': typeof PostsPostIdIndexRoute
+  '/search/$keyword/': typeof SearchKeywordIndexRoute
   '/_testLayout/test/news/': typeof TestLayoutTestNewsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/playlist'
     | '/posts'
     | '/search'
     | '/testjson'
     | '/test'
+    | '/playlist/$id'
     | '/posts/$postId'
+    | '/search/$keyword'
     | '/test/news'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/playlist'
     | '/posts'
     | '/search'
     | '/testjson'
     | '/test'
+    | '/playlist/$id'
     | '/posts/$postId'
+    | '/search/$keyword'
     | '/test/news'
   id:
     | '__root__'
     | '/'
     | '/_testLayout'
+    | '/playlist/'
     | '/posts/'
     | '/search/'
     | '/testjson/'
     | '/_testLayout/test/'
+    | '/playlist/$id/'
     | '/posts/$postId/'
+    | '/search/$keyword/'
     | '/_testLayout/test/news/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   TestLayoutRoute: typeof TestLayoutRouteWithChildren
+  PlaylistIndexRoute: typeof PlaylistIndexRoute
   PostsIndexRoute: typeof PostsIndexRoute
   SearchIndexRoute: typeof SearchIndexRoute
   TestjsonIndexRoute: typeof TestjsonIndexRoute
+  PlaylistIdIndexRoute: typeof PlaylistIdIndexRoute
   PostsPostIdIndexRoute: typeof PostsPostIdIndexRoute
+  SearchKeywordIndexRoute: typeof SearchKeywordIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -164,11 +203,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/playlist/': {
+      id: '/playlist/'
+      path: '/playlist'
+      fullPath: '/playlist'
+      preLoaderRoute: typeof PlaylistIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search/$keyword/': {
+      id: '/search/$keyword/'
+      path: '/search/$keyword'
+      fullPath: '/search/$keyword'
+      preLoaderRoute: typeof SearchKeywordIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/posts/$postId/': {
       id: '/posts/$postId/'
       path: '/posts/$postId'
       fullPath: '/posts/$postId'
       preLoaderRoute: typeof PostsPostIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/playlist/$id/': {
+      id: '/playlist/$id/'
+      path: '/playlist/$id'
+      fullPath: '/playlist/$id'
+      preLoaderRoute: typeof PlaylistIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_testLayout/test/': {
@@ -205,10 +265,13 @@ const TestLayoutRouteWithChildren = TestLayoutRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   TestLayoutRoute: TestLayoutRouteWithChildren,
+  PlaylistIndexRoute: PlaylistIndexRoute,
   PostsIndexRoute: PostsIndexRoute,
   SearchIndexRoute: SearchIndexRoute,
   TestjsonIndexRoute: TestjsonIndexRoute,
+  PlaylistIdIndexRoute: PlaylistIdIndexRoute,
   PostsPostIdIndexRoute: PostsPostIdIndexRoute,
+  SearchKeywordIndexRoute: SearchKeywordIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
