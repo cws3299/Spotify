@@ -56,6 +56,12 @@ body,
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --fromis-Primary: #ff7cbf;
+  --fromis-Primary-hover: #ff94ca;
+  --fromis-Secondary: #8ce6c2;
+  --fromis-Background: #fff7fa;
+  --fromis-Text: #222222;
+  --fromis-Accent: #b48bff;
 }
 
 a {
@@ -143,6 +149,12 @@ button:focus-visible {
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-fromis-Primary: var(--fromis-Primary);
+  --color-fromis-Secondary: var(--fromis-Secondary);
+  --color-fromis-Background: var(--fromis-Bacground);
+  --color-fromis-Text: var(--fromis-Text);
+  --color-fromis-Accent: var(--fromis-Accent);
+  --color-fromis-primary-hover: var(--fromis-Primary-hover);
 }
 
 .dark {
@@ -177,6 +189,12 @@ button:focus-visible {
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --fromis-Primary: #ff7cbf;
+  --fromis-Secondary: #8ce6c2;
+  --fromis-Background: #fff7fa;
+  --fromis-Text: #222222;
+  --fromis-Accent: #b48bff;
+  --fromis-Primary-hover: #ff94ca;
 }
 
 @layer base {
