@@ -9,27 +9,207 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './pages/__root'
+import { Route as TestLayoutRouteImport } from './pages/_testLayout'
+import { Route as IndexRouteImport } from './pages/index'
+import { Route as TestjsonIndexRouteImport } from './pages/testjson/index'
+import { Route as SearchIndexRouteImport } from './pages/search/index'
+import { Route as PostsIndexRouteImport } from './pages/posts/index'
+import { Route as PostsPostIdIndexRouteImport } from './pages/posts/$postId/index'
+import { Route as TestLayoutTestIndexRouteImport } from './pages/_testLayout/test/index'
+import { Route as TestLayoutTestNewsIndexRouteImport } from './pages/_testLayout/test/news/index'
 
-export interface FileRoutesByFullPath {}
-export interface FileRoutesByTo {}
+const TestLayoutRoute = TestLayoutRouteImport.update({
+  id: '/_testLayout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TestjsonIndexRoute = TestjsonIndexRouteImport.update({
+  id: '/testjson/',
+  path: '/testjson/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchIndexRoute = SearchIndexRouteImport.update({
+  id: '/search/',
+  path: '/search/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PostsIndexRoute = PostsIndexRouteImport.update({
+  id: '/posts/',
+  path: '/posts/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PostsPostIdIndexRoute = PostsPostIdIndexRouteImport.update({
+  id: '/posts/$postId/',
+  path: '/posts/$postId/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TestLayoutTestIndexRoute = TestLayoutTestIndexRouteImport.update({
+  id: '/test/',
+  path: '/test/',
+  getParentRoute: () => TestLayoutRoute,
+} as any)
+const TestLayoutTestNewsIndexRoute = TestLayoutTestNewsIndexRouteImport.update({
+  id: '/test/news/',
+  path: '/test/news/',
+  getParentRoute: () => TestLayoutRoute,
+} as any)
+
+export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
+  '/posts': typeof PostsIndexRoute
+  '/search': typeof SearchIndexRoute
+  '/testjson': typeof TestjsonIndexRoute
+  '/test': typeof TestLayoutTestIndexRoute
+  '/posts/$postId': typeof PostsPostIdIndexRoute
+  '/test/news': typeof TestLayoutTestNewsIndexRoute
+}
+export interface FileRoutesByTo {
+  '/': typeof IndexRoute
+  '/posts': typeof PostsIndexRoute
+  '/search': typeof SearchIndexRoute
+  '/testjson': typeof TestjsonIndexRoute
+  '/test': typeof TestLayoutTestIndexRoute
+  '/posts/$postId': typeof PostsPostIdIndexRoute
+  '/test/news': typeof TestLayoutTestNewsIndexRoute
+}
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/_testLayout': typeof TestLayoutRouteWithChildren
+  '/posts/': typeof PostsIndexRoute
+  '/search/': typeof SearchIndexRoute
+  '/testjson/': typeof TestjsonIndexRoute
+  '/_testLayout/test/': typeof TestLayoutTestIndexRoute
+  '/posts/$postId/': typeof PostsPostIdIndexRoute
+  '/_testLayout/test/news/': typeof TestLayoutTestNewsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: never
+  fullPaths:
+    | '/'
+    | '/posts'
+    | '/search'
+    | '/testjson'
+    | '/test'
+    | '/posts/$postId'
+    | '/test/news'
   fileRoutesByTo: FileRoutesByTo
-  to: never
-  id: '__root__'
+  to:
+    | '/'
+    | '/posts'
+    | '/search'
+    | '/testjson'
+    | '/test'
+    | '/posts/$postId'
+    | '/test/news'
+  id:
+    | '__root__'
+    | '/'
+    | '/_testLayout'
+    | '/posts/'
+    | '/search/'
+    | '/testjson/'
+    | '/_testLayout/test/'
+    | '/posts/$postId/'
+    | '/_testLayout/test/news/'
   fileRoutesById: FileRoutesById
 }
-export interface RootRouteChildren {}
-
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {}
+export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
+  TestLayoutRoute: typeof TestLayoutRouteWithChildren
+  PostsIndexRoute: typeof PostsIndexRoute
+  SearchIndexRoute: typeof SearchIndexRoute
+  TestjsonIndexRoute: typeof TestjsonIndexRoute
+  PostsPostIdIndexRoute: typeof PostsPostIdIndexRoute
 }
 
-const rootRouteChildren: RootRouteChildren = {}
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/_testLayout': {
+      id: '/_testLayout'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof TestLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/testjson/': {
+      id: '/testjson/'
+      path: '/testjson'
+      fullPath: '/testjson'
+      preLoaderRoute: typeof TestjsonIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search/': {
+      id: '/search/'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/posts/': {
+      id: '/posts/'
+      path: '/posts'
+      fullPath: '/posts'
+      preLoaderRoute: typeof PostsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/posts/$postId/': {
+      id: '/posts/$postId/'
+      path: '/posts/$postId'
+      fullPath: '/posts/$postId'
+      preLoaderRoute: typeof PostsPostIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_testLayout/test/': {
+      id: '/_testLayout/test/'
+      path: '/test'
+      fullPath: '/test'
+      preLoaderRoute: typeof TestLayoutTestIndexRouteImport
+      parentRoute: typeof TestLayoutRoute
+    }
+    '/_testLayout/test/news/': {
+      id: '/_testLayout/test/news/'
+      path: '/test/news'
+      fullPath: '/test/news'
+      preLoaderRoute: typeof TestLayoutTestNewsIndexRouteImport
+      parentRoute: typeof TestLayoutRoute
+    }
+  }
+}
+
+interface TestLayoutRouteChildren {
+  TestLayoutTestIndexRoute: typeof TestLayoutTestIndexRoute
+  TestLayoutTestNewsIndexRoute: typeof TestLayoutTestNewsIndexRoute
+}
+
+const TestLayoutRouteChildren: TestLayoutRouteChildren = {
+  TestLayoutTestIndexRoute: TestLayoutTestIndexRoute,
+  TestLayoutTestNewsIndexRoute: TestLayoutTestNewsIndexRoute,
+}
+
+const TestLayoutRouteWithChildren = TestLayoutRoute._addFileChildren(
+  TestLayoutRouteChildren,
+)
+
+const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
+  TestLayoutRoute: TestLayoutRouteWithChildren,
+  PostsIndexRoute: PostsIndexRoute,
+  SearchIndexRoute: SearchIndexRoute,
+  TestjsonIndexRoute: TestjsonIndexRoute,
+  PostsPostIdIndexRoute: PostsPostIdIndexRoute,
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
